@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"log"
 	"net/http"
 )
 
@@ -22,11 +23,15 @@ func requestHandler(w http.ResponseWriter, r *http.Request) {
 	h.Set("Cache-Control", "no-cache")
 	h.Set("Pragma", "no-cache")
 	h.Set("Content-Type", "text/plain")
-	w.Write([]byte(responseText))
+	w.Write([]byte(responseText + "\n"))
+	log.Printf("%s \"%s %s %s\" \"%s\"\n",
+		r.RemoteAddr, r.Method, r.URL, r.Proto, r.Header.Get("user-agent"))
 }
 
 func main() {
 	parseFlags()
 	http.HandleFunc("/", requestHandler)
-	http.ListenAndServe(networkAddress, nil)
+	if err := http.ListenAndServe(networkAddress, nil); err != nil {
+		log.Fatal("Network bind error: ", err)
+	}
 }
