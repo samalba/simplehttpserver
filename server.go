@@ -7,6 +7,7 @@ import (
 )
 
 var (
+	silent         bool
 	responseText   string
 	networkAddress string
 )
@@ -15,6 +16,7 @@ func parseFlags() {
 	flag.StringVar(&responseText, "text", "ok", "Text to reply")
 	flag.StringVar(&networkAddress, "bind", ":8000",
 		"Network address for listening")
+	flag.BoolVar(&silent, "silent", false, "Do not log incoming requests")
 	flag.Parse()
 }
 
@@ -24,6 +26,9 @@ func requestHandler(w http.ResponseWriter, r *http.Request) {
 	h.Set("Pragma", "no-cache")
 	h.Set("Content-Type", "text/plain")
 	w.Write([]byte(responseText + "\n"))
+	if silent == true {
+		return
+	}
 	log.Printf("%s \"%s %s %s\" \"%s\"\n",
 		r.RemoteAddr, r.Method, r.URL, r.Proto, r.Header.Get("user-agent"))
 }
