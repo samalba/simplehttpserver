@@ -1,7 +1,7 @@
 Simple HTTP Server
 ==================
 
-If you need to have the same thing than
+If you need a quick "hello server" like
 
     python -m SimpleHTTPServer
 
@@ -18,8 +18,8 @@ and be able to serve more requests...
 
     ./simplehttpserver
 
-    It does not log anything for the moment (feel free to contribute). See the
-    default options below.
+It does not log anything for the moment (feel free to contribute). See the
+default options below.
 
 3. Modify the behavior
 ----------------------
