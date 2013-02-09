@@ -18,13 +18,11 @@ and be able to serve more requests...
 
     ./simplehttpserver
 
-It does not log anything for the moment (feel free to contribute). See the
-default options below.
-
 3. Modify the behavior
 ----------------------
 
     ./simplehttpserver -h
     Usage of ./simplehttpserver:
       -bind=":8000": Network address for listening
+      -silent=false: Do not log incoming requests
       -text="ok": Text to reply
